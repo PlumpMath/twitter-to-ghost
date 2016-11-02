@@ -1,5 +1,6 @@
 import csv
 import sys
+import re
 
 """
 headers:
@@ -15,6 +16,13 @@ headers:
 9 expanded_urls
 """
 
+# from http://stackoverflow.com/a/11361109/51280
+regex = '@([a-zA-Z0-9_]{1,15})'
+pattern = re.compile(regex)
+
+def replacer(string, before, after):
+    string = string.replace(before, after)
+
 with open('tweets/tweets.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 
@@ -22,13 +30,10 @@ with open('tweets/tweets.csv', newline='') as csvfile:
     next(reader)
 
     for row in reader:
+        chirp = row[5]
 
-        if row[1] and row[2]:
-            #print('BOTH %s' % row[5])
-            pass
-        else:
-            print('BOTH %s' % row[5])
-            #print('<skipping>')
-
-
-        #sys.exit()
+        matches = re.findall(pattern, chirp)
+        if matches:
+            for match in matches:
+                chirp = chirp.replace('@%s' % match, '[%s](https://twitter.com/%s)' % (match, match))
+        print(chirp)
