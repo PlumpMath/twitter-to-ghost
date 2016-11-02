@@ -3,6 +3,7 @@ import sys
 import re
 from slugify import slugify
 from dateutil.parser import parse
+import json
 
 """
 headers:
@@ -19,7 +20,7 @@ headers:
 """
 
 # from http://stackoverflow.com/a/11361109/51280
-regex = ' @([a-zA-Z0-9_]{1,15})'
+regex = r'\B@([a-zA-Z0-9_]{1,15})'
 pattern = re.compile(regex)
 
 null = None
@@ -77,13 +78,12 @@ with open('tweets/tweets.csv', newline='') as csvfile:
 
         # 2015-11-11 19:34:00 +0000
         dt = parse(whence)
-        print(dt)
 
         matches = re.findall(pattern, chirp)
         if matches:
             for match in matches:
                 chirp = chirp.replace('@%s' % match, '[%s](https://twitter.com/%s)' % (match, match))
-
+        print(chirp)
         for tag_id in range(1,3):
             post_tag = {
               "tag_id": tag_id,
@@ -94,7 +94,10 @@ with open('tweets/tweets.csv', newline='') as csvfile:
         date = dt.strftime('%Y-%m-%d')
         time = dt.strftime('%H:%M:%S')
         epoch = int('%s000' % dt.strftime('%s'))
-        title = "A random thought on %s at %s" % (date, time)
+        title = "A random thought on %s" % (date,)
+        if time != '00:00:00':
+            title = "A random thought on %s at %s" % (date, time)
+
         post = {
           "created_at": time,
           "page": 0,
@@ -118,5 +121,5 @@ with open('tweets/tweets.csv', newline='') as csvfile:
         }
         out['data']['posts'].append(post)
 
-with open('twitter-to-ghost.json', 'w') as outfile:
-    outfile.write(out)
+with open('out.json', 'w') as outfile:
+    outfile.write(json.dumps(out))
