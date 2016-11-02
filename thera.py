@@ -99,13 +99,13 @@ with open('tweets/tweets.csv', newline='') as csvfile:
             title = "A random thought on %s at %s" % (date, time)
 
         post = {
-          "created_at": time,
+          "created_at": epoch,
           "page": 0,
-          "updated_at": time,
+          "updated_at": epoch,
           "created_by": 1,
           "status": "published",
           "markdown": chirp,
-          "published_at": time,
+          "published_at": epoch,
           "updated_by": 1,
           "id": idx,
           "meta_description": null,
