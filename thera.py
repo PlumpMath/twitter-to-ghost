@@ -17,7 +17,7 @@ headers:
 """
 
 # from http://stackoverflow.com/a/11361109/51280
-regex = '@([a-zA-Z0-9_]{1,15})'
+regex = ' @([a-zA-Z0-9_]{1,15})'
 pattern = re.compile(regex)
 
 def replacer(string, before, after):
