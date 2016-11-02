@@ -1,6 +1,8 @@
 import csv
 import sys
 import re
+from slugify import slugify
+from dateutil.parser import parse
 
 """
 headers:
@@ -71,6 +73,11 @@ with open('tweets/tweets.csv', newline='') as csvfile:
     for idx, row in enumerate(reader, 1):
 
         chirp = row[5]
+        whence = row[3]
+
+        # 2015-11-11 19:34:00 +0000
+        dt = parse(whence)
+        print(dt)
 
         matches = re.findall(pattern, chirp)
         if matches:
@@ -84,29 +91,32 @@ with open('tweets/tweets.csv', newline='') as csvfile:
             }
             out['data']['posts_tags'].append(post_tag)
 
-        date = 'x'
-        time = 'y'
+        date = dt.strftime('%Y-%m-%d')
+        time = dt.strftime('%H:%M:%S')
+        epoch = int('%s000' % dt.strftime('%s'))
+        title = "A random thought on %s at %s" % (date, time)
         post = {
-          "created_at": 1330072500000,
+          "created_at": time,
           "page": 0,
-          "updated_at": 1330072500000,
+          "updated_at": time,
           "created_by": 1,
           "status": "published",
           "markdown": chirp,
-          "published_at": 1330072500000,
+          "published_at": time,
           "updated_by": 1,
           "id": idx,
           "meta_description": null,
-          "slug": "from-programmers-bill-of-rights-2012-all",
+          "slug": slugify(title),
           "featured": 0,
           "image": null,
           "html": chirp,
           "published_by": 1,
-          "title": "A random thought on %s at %s" % (date, time),
+          "title": title,
           "author_id": 1,
           "meta_title": null,
           "language": "en_US"
         }
-        print('%s: %s' % (idx, chirp))
+        out['data']['posts'].append(post)
 
-print(out)
+with open('twitter-to-ghost.json', 'w') as outfile:
+    outfile.write(out)
