@@ -83,7 +83,10 @@ with open('tweets/tweets.csv', newline='') as csvfile:
         if matches:
             for match in matches:
                 chirp = chirp.replace('@%s' % match, '[%s](https://twitter.com/%s)' % (match, match))
-        print(chirp)
+
+        # escape hash symbol, otherwise markdown
+        chirp = chirp.replace('#', '\#')
+
         for tag_id in range(1,3):
             post_tag = {
               "tag_id": tag_id,
