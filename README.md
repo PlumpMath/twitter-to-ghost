@@ -17,7 +17,7 @@ Download your Twitter archive from [the account page](https://twitter.com/settin
 Unzip your archive. Call the resulting directory `tweets` or modify the code to suit.
 
 ## Make
-Run `make` and it will spit out `out.json` or `out-pp.json` (the latter pretty-printed for your eyeballs).
+Run `make` and it will spit out `out.json` or `out-pp.json` (the latter pretty-printed for your eyeballs, and it presumes [jq](https://stedolan.github.io/jq/). Come on - tell me you have jq installed...).
 
 ## Import
 
