@@ -29,6 +29,12 @@ Go to Ghost Labs admin menu, and import `out.json`
 
 ![Ghost import](ghostimport.png)
 
+## Enjoy
+
+Sit back and enjoy your jabberings off-silo, and perhaps start referring to them as *chirps*. [Here's mine.](http://www.opyate.com/tag/noise/)
+
+Remember &mdash; [IndieWeb FTW](https://indieweb.org/).
+
 # Caveats
 
 I've hard-coded two tags, but you should modify this. Please send me a PR to make this bit of the tool configurable.
