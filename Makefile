@@ -7,5 +7,4 @@ clean:
 	@rm -f out-pp.py
 
 run:
-	@python3 thera.py
-	@cat out.json | jq '.' > out-pp.json
+	@python thera.py

@@ -6,10 +6,7 @@ Upload all your Tweets to Ghost.
 
 # Dependencies
 
-You might be OK here, but...
-
-* [python-slugify](https://github.com/un33k/python-slugify) or `pip install -r requirements.txt`
-* [jq](https://stedolan.github.io/jq/)
+    pip install -r requirements.txt
 
 ## Download
 
@@ -24,7 +21,7 @@ Download your Twitter archive from [the account page](https://twitter.com/settin
 Unzip your archive. Call the resulting directory `tweets` or modify the code to suit.
 
 ## Make
-Run `make` and it will spit out `out.json` or `out-pp.json` (the latter pretty-printed for your eyeballs.
+Run `make` and it will spit out `out.json`.
 
 ## Import
 
